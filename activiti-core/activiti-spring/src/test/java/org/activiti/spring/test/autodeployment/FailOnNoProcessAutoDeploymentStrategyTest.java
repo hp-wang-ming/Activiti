@@ -7,6 +7,8 @@ import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.test.TestHelper;
 import org.activiti.spring.autodeployment.FailOnNoProcessAutoDeploymentStrategy;
 import org.activiti.spring.impl.test.SpringActivitiTestCase;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -21,9 +23,9 @@ public class FailOnNoProcessAutoDeploymentStrategyTest extends SpringActivitiTes
     private final String invalidName1 = "org/activiti/spring/test/autodeployment/errorHandling/parsing-error.bpmn20.xml";
     private final String invalidName2 = "org/activiti/spring/test/autodeployment/errorHandling/validation-error.bpmn20.xml";
 
-    @Override
-    public void setUp() {
-        super.setUp();
+    @Before
+    @After
+    public void cleanUp() {
         TestHelper.cleanUpDeployments(repositoryService);
     }
 
@@ -69,4 +71,5 @@ public class FailOnNoProcessAutoDeploymentStrategyTest extends SpringActivitiTes
             .withMessage("No process definition was deployed.");
         assertThat(repositoryService.createDeploymentQuery().count()).isEqualTo(0);
     }
+
 }

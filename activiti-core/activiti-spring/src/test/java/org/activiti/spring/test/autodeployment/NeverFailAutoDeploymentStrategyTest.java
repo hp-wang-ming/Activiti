@@ -6,6 +6,8 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.impl.test.TestHelper;
 import org.activiti.spring.autodeployment.NeverFailAutoDeploymentStrategy;
 import org.activiti.spring.impl.test.SpringActivitiTestCase;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -24,9 +26,9 @@ public class NeverFailAutoDeploymentStrategyTest extends SpringActivitiTestCase 
     @Autowired
     private RepositoryService repositoryService;
 
-    @Override
-    public void setUp() {
-        super.setUp();
+    @Before
+    @After
+    public void cleanUp() {
         TestHelper.cleanUpDeployments(repositoryService);
     }
 

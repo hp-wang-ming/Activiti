@@ -62,12 +62,12 @@ public abstract class SpringActivitiTestCase {
     protected TaskService taskService;
 
     @Rule
-    public ActivitiRule activitiRule = new ActivitiRule();
-
-    @Before
-    public void setUp() {
-        activitiRule.setProcessEngine(processEngine);
-    }
+    public ActivitiRule activitiRule = new ActivitiRule() {
+        @Override
+        protected void initializeProcessEngine() {
+            this.processEngine = SpringActivitiTestCase.this.processEngine;
+        }
+    };
 
     @After
     public void tearDown() {
